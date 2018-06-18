@@ -102,7 +102,7 @@ calculate_levels_simple <-function(wll_csv, baro_csv, wll.type, baro.type = soli
   # adjust for NAVD elevations (use with caution)
   if(!missing(sensor.elev) && !missing(navd.dir)){
     warning('WARNING: use NAVD adjustment with caution - double check all RTK values and calculations before proceeding')
-    threshold <- function (x, y) ifelse(x > 0.5, x+y, NA)
+    threshold <- function (x, y) ifelse(x > 0.05, x+y, NA)
     navd <- wlas %>%
       mutate(sensor.elev = sensor.elev,
              navd.level = threshold(water.level.above.sensor, sensor.elev))
