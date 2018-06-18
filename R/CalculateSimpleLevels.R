@@ -114,9 +114,9 @@ calculate_levels_simple <-function(wll_csv, baro_csv, wll.type, baro.type = soli
   wl.title <- basename(tools::file_path_sans_ext(wll_csv))
   write.csv(wlas, file.path(output.dir, sprintf('%s_BaroDensCompensated.csv',
                                                 wl.title)))
-  ggsave(wlas.plot, file.path(output.dir, sprintf('%s_wl_above.sensor.png',
-                                                  wl.title)),
-         width = 5, height = 4, units = 'in')
+  ggsave(file.path(output.dir, sprintf('%s_wl_above.sensor.png',
+                                        wl.title)),
+         wlas.plot, width = 5, height = 4, units = 'in')
   if(!missing(sensor.elev) && !missing(navd.dir)){
     write.csv(navd, file.path(navd.dir,
                               sprintf('%s_CompensatedLevelsSensorHeight.csv',
