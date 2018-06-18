@@ -95,7 +95,7 @@ calculate_levels_simple <-function(wll_csv, baro_csv, wll.type, baro.type = soli
   # generate plot of water levels above sensor for QA
   wlas.plot <- ggplot(wlas, aes(time, water.level.above.sensor))+
     geom_point(size = 0.5) + theme_bw() +
-    labs(y = water.level.above.sensor)
+    labs(y = 'water level above sensor')
     
   
   # adjust for NAVD elevations (use with caution)
