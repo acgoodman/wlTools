@@ -44,7 +44,8 @@ calculate_levels_simple <-function(wll_csv, baro_csv, wll.type, baro.type = soli
   if(baro.type == 'Solinst'){
     baro.data <- standardize.baro(solinst.file = baro_csv)
   } else if(baro.type == 'Hobo'){
-    baro.data <- standardize.hobo(baro_csv)
+    baro.data <- standardize.hobo(baro_csv) %>%
+      select(time, baro.pressure = total.pressure)
   } else if(baro.type == 'df'){
     if(!('time' %in% names(baro.df) && 'baro.pressure' %in% names(baro.df))){
       stop('Baro data must have columns: "time", "baro.pressure"')
@@ -113,14 +114,16 @@ calculate_levels_simple <-function(wll_csv, baro_csv, wll.type, baro.type = soli
   # save water levels above sensor to output directory
   wl.title <- basename(tools::file_path_sans_ext(wll_csv))
   write.csv(wlas, file.path(output.dir, sprintf('%s_BaroDensCompensated.csv',
-                                                wl.title)))
+                                                wl.title)),
+            row.names = FALSE)
   ggsave(file.path(output.dir, sprintf('%s_wl_above.sensor.png',
                                         wl.title)),
          wlas.plot, width = 5, height = 4, units = 'in')
   if(!missing(sensor.elev) && !missing(navd.dir)){
     write.csv(navd, file.path(navd.dir,
                               sprintf('%s_CompensatedLevelsSensorHeight.csv',
-                                      wl.title)))
+                                      wl.title)),
+              row.names = FALSE)
   }
 
 
